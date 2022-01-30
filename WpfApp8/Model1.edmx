@@ -1,0 +1,893 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище PracModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adress">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idClient" Type="int" />
+          <Property Name="idVar" Type="int" />
+          <Property Name="idType" Type="int" />
+          <Property Name="DataS" Type="date" />
+          <Property Name="DateC" Type="date" />
+          <Property Name="Oplata" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Stasus" Type="bit" />
+          <Property Name="idUl" Type="int" />
+          <Property Name="Number" Type="nchar" MaxLength="10" />
+          <Property Name="Numberofber" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Appeals">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Discribe" Type="nchar" MaxLength="10" />
+          <Property Name="idAdress" Type="int" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fio" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pasport" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Bith" Type="date" />
+        </EntityType>
+        <EntityType Name="Equip">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="idUs" Type="int" />
+          <Property Name="Количество" Type="int" />
+        </EntityType>
+        <EntityType Name="Roll">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sotrud">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="50" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pasport" Type="nvarchar" MaxLength="10" />
+          <Property Name="Rol" Type="int" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Ulitca">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Usluga">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Var">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FUs" Type="int" />
+          <Property Name="SUs" Type="int" />
+          <Property Name="NUs" Type="int" />
+          <Property Name="FoUs" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Zadachi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idSot" Type="int" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="idAdr" Type="int" />
+          <Property Name="Discribe" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="idIsp" Type="int" />
+        </EntityType>
+        <Association Name="FK_Adress_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Adress" Type="Self.Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adress_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="Adress" Type="Self.Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adress_Ulitca">
+          <End Role="Ulitca" Type="Self.Ulitca" Multiplicity="0..1" />
+          <End Role="Adress" Type="Self.Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ulitca">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="idUl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adress_Var">
+          <End Role="Var" Type="Self.Var" Multiplicity="0..1" />
+          <End Role="Adress" Type="Self.Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Var">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="idVar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equip_Usluga">
+          <End Role="Usluga" Type="Self.Usluga" Multiplicity="0..1" />
+          <End Role="Equip" Type="Self.Equip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Equip">
+              <PropertyRef Name="idUs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sotrud_Roll">
+          <End Role="Roll" Type="Self.Roll" Multiplicity="0..1" />
+          <End Role="Sotrud" Type="Self.Sotrud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roll">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Sotrud">
+              <PropertyRef Name="Rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Var_Usluga">
+          <End Role="Usluga" Type="Self.Usluga" Multiplicity="0..1" />
+          <End Role="Var" Type="Self.Var" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Var">
+              <PropertyRef Name="FUs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Var_Usluga1">
+          <End Role="Usluga" Type="Self.Usluga" Multiplicity="0..1" />
+          <End Role="Var" Type="Self.Var" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Var">
+              <PropertyRef Name="SUs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Var_Usluga2">
+          <End Role="Usluga" Type="Self.Usluga" Multiplicity="0..1" />
+          <End Role="Var" Type="Self.Var" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Var">
+              <PropertyRef Name="NUs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Var_Usluga3">
+          <End Role="Usluga" Type="Self.Usluga" Multiplicity="0..1" />
+          <End Role="Var" Type="Self.Var" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Var">
+              <PropertyRef Name="FoUs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadachi_Adress">
+          <End Role="Adress" Type="Self.Adress" Multiplicity="0..1" />
+          <End Role="Zadachi" Type="Self.Zadachi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adress">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadachi">
+              <PropertyRef Name="idAdr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadachi_Sotrud">
+          <End Role="Sotrud" Type="Self.Sotrud" Multiplicity="0..1" />
+          <End Role="Zadachi" Type="Self.Zadachi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sotrud">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadachi">
+              <PropertyRef Name="idSot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadachi_Sotrud1">
+          <End Role="Sotrud" Type="Self.Sotrud" Multiplicity="0..1" />
+          <End Role="Zadachi" Type="Self.Zadachi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sotrud">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadachi">
+              <PropertyRef Name="idIsp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadachi_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Zadachi" Type="Self.Zadachi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadachi">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PracModelContainer">
+          <EntitySet Name="Adress" EntityType="Self.Adress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Appeals" EntityType="Self.Appeals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equip" EntityType="Self.Equip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roll" EntityType="Self.Roll" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sotrud" EntityType="Self.Sotrud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ulitca" EntityType="Self.Ulitca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usluga" EntityType="Self.Usluga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Var" EntityType="Self.Var" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zadachi" EntityType="Self.Zadachi" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Adress_Client" Association="Self.FK_Adress_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adress_Type" Association="Self.FK_Adress_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adress_Ulitca" Association="Self.FK_Adress_Ulitca">
+            <End Role="Ulitca" EntitySet="Ulitca" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adress_Var" Association="Self.FK_Adress_Var">
+            <End Role="Var" EntitySet="Var" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equip_Usluga" Association="Self.FK_Equip_Usluga">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Equip" EntitySet="Equip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sotrud_Roll" Association="Self.FK_Sotrud_Roll">
+            <End Role="Roll" EntitySet="Roll" />
+            <End Role="Sotrud" EntitySet="Sotrud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Var_Usluga" Association="Self.FK_Var_Usluga">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Var" EntitySet="Var" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Var_Usluga1" Association="Self.FK_Var_Usluga1">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Var" EntitySet="Var" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Var_Usluga2" Association="Self.FK_Var_Usluga2">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Var" EntitySet="Var" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Var_Usluga3" Association="Self.FK_Var_Usluga3">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Var" EntitySet="Var" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadachi_Adress" Association="Self.FK_Zadachi_Adress">
+            <End Role="Adress" EntitySet="Adress" />
+            <End Role="Zadachi" EntitySet="Zadachi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadachi_Sotrud" Association="Self.FK_Zadachi_Sotrud">
+            <End Role="Sotrud" EntitySet="Sotrud" />
+            <End Role="Zadachi" EntitySet="Zadachi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadachi_Sotrud1" Association="Self.FK_Zadachi_Sotrud1">
+            <End Role="Sotrud" EntitySet="Sotrud" />
+            <End Role="Zadachi" EntitySet="Zadachi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadachi_Status" Association="Self.FK_Zadachi_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Zadachi" EntitySet="Zadachi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PracModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Usluga">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Equip" Relationship="PracModel.FK_Equip_Usluga" FromRole="Usluga" ToRole="Equip" />
+          <NavigationProperty Name="Var" Relationship="PracModel.FK_Var_Usluga" FromRole="Usluga" ToRole="Var" />
+          <NavigationProperty Name="Var1" Relationship="PracModel.FK_Var_Usluga1" FromRole="Usluga" ToRole="Var" />
+          <NavigationProperty Name="Var2" Relationship="PracModel.FK_Var_Usluga2" FromRole="Usluga" ToRole="Var" />
+          <NavigationProperty Name="Var3" Relationship="PracModel.FK_Var_Usluga3" FromRole="Usluga" ToRole="Var" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Usluga" EntityType="Self.Usluga" />
+          <EntitySet Name="Adress" EntityType="PracModel.Adress" />
+          <EntitySet Name="Appeals" EntityType="PracModel.Appeals" />
+          <EntitySet Name="Client" EntityType="PracModel.Client" />
+          <EntitySet Name="Equip" EntityType="PracModel.Equip" />
+          <EntitySet Name="Roll" EntityType="PracModel.Roll" />
+          <EntitySet Name="Sotrud" EntityType="PracModel.Sotrud" />
+          <EntitySet Name="Status" EntityType="PracModel.Status" />
+          <EntitySet Name="Type" EntityType="PracModel.Type" />
+          <EntitySet Name="Ulitca" EntityType="PracModel.Ulitca" />
+          <EntitySet Name="Var" EntityType="PracModel.Var" />
+          <EntitySet Name="Zadachi" EntityType="PracModel.Zadachi" />
+          <AssociationSet Name="FK_Adress_Client" Association="PracModel.FK_Adress_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adress_Type" Association="PracModel.FK_Adress_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adress_Ulitca" Association="PracModel.FK_Adress_Ulitca">
+            <End Role="Ulitca" EntitySet="Ulitca" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adress_Var" Association="PracModel.FK_Adress_Var">
+            <End Role="Var" EntitySet="Var" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadachi_Adress" Association="PracModel.FK_Zadachi_Adress">
+            <End Role="Adress" EntitySet="Adress" />
+            <End Role="Zadachi" EntitySet="Zadachi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equip_Usluga" Association="PracModel.FK_Equip_Usluga">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Equip" EntitySet="Equip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sotrud_Roll" Association="PracModel.FK_Sotrud_Roll">
+            <End Role="Roll" EntitySet="Roll" />
+            <End Role="Sotrud" EntitySet="Sotrud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadachi_Sotrud" Association="PracModel.FK_Zadachi_Sotrud">
+            <End Role="Sotrud" EntitySet="Sotrud" />
+            <End Role="Zadachi" EntitySet="Zadachi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadachi_Sotrud1" Association="PracModel.FK_Zadachi_Sotrud1">
+            <End Role="Sotrud" EntitySet="Sotrud" />
+            <End Role="Zadachi" EntitySet="Zadachi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadachi_Status" Association="PracModel.FK_Zadachi_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Zadachi" EntitySet="Zadachi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Var_Usluga" Association="PracModel.FK_Var_Usluga">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Var" EntitySet="Var" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Var_Usluga1" Association="PracModel.FK_Var_Usluga1">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Var" EntitySet="Var" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Var_Usluga2" Association="PracModel.FK_Var_Usluga2">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Var" EntitySet="Var" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Var_Usluga3" Association="PracModel.FK_Var_Usluga3">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Var" EntitySet="Var" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Adress">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idClient" Type="Int32" />
+          <Property Name="idVar" Type="Int32" />
+          <Property Name="idType" Type="Int32" />
+          <Property Name="DataS" Type="DateTime" Precision="0" />
+          <Property Name="DateC" Type="DateTime" Precision="0" />
+          <Property Name="Oplata" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Stasus" Type="Boolean" />
+          <Property Name="idUl" Type="Int32" />
+          <Property Name="Number" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="PracModel.FK_Adress_Client" FromRole="Adress" ToRole="Client" />
+          <NavigationProperty Name="Type" Relationship="PracModel.FK_Adress_Type" FromRole="Adress" ToRole="Type" />
+          <NavigationProperty Name="Ulitca" Relationship="PracModel.FK_Adress_Ulitca" FromRole="Adress" ToRole="Ulitca" />
+          <NavigationProperty Name="Var" Relationship="PracModel.FK_Adress_Var" FromRole="Adress" ToRole="Var" />
+          <NavigationProperty Name="Zadachi" Relationship="PracModel.FK_Zadachi_Adress" FromRole="Adress" ToRole="Zadachi" />
+          <Property Name="Numberofber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Appeals">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Discribe" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="idAdress" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pasport" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bith" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Adress" Relationship="PracModel.FK_Adress_Client" FromRole="Client" ToRole="Adress" />
+        </EntityType>
+        <EntityType Name="Equip">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idUs" Type="Int32" />
+          <Property Name="Количество" Type="Int32" />
+          <NavigationProperty Name="Usluga" Relationship="PracModel.FK_Equip_Usluga" FromRole="Equip" ToRole="Usluga" />
+        </EntityType>
+        <EntityType Name="Roll">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sotrud" Relationship="PracModel.FK_Sotrud_Roll" FromRole="Roll" ToRole="Sotrud" />
+        </EntityType>
+        <EntityType Name="Sotrud">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pasport" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Rol" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Roll" Relationship="PracModel.FK_Sotrud_Roll" FromRole="Sotrud" ToRole="Roll" />
+          <NavigationProperty Name="Zadachi" Relationship="PracModel.FK_Zadachi_Sotrud" FromRole="Sotrud" ToRole="Zadachi" />
+          <NavigationProperty Name="Zadachi1" Relationship="PracModel.FK_Zadachi_Sotrud1" FromRole="Sotrud" ToRole="Zadachi" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Zadachi" Relationship="PracModel.FK_Zadachi_Status" FromRole="Status" ToRole="Zadachi" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Adress" Relationship="PracModel.FK_Adress_Type" FromRole="Type" ToRole="Adress" />
+        </EntityType>
+        <EntityType Name="Ulitca">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Adress" Relationship="PracModel.FK_Adress_Ulitca" FromRole="Ulitca" ToRole="Adress" />
+        </EntityType>
+        <EntityType Name="Var">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FUs" Type="Int32" />
+          <Property Name="SUs" Type="Int32" />
+          <Property Name="NUs" Type="Int32" />
+          <Property Name="FoUs" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Adress" Relationship="PracModel.FK_Adress_Var" FromRole="Var" ToRole="Adress" />
+          <NavigationProperty Name="Usluga" Relationship="PracModel.FK_Var_Usluga" FromRole="Var" ToRole="Usluga" />
+          <NavigationProperty Name="Usluga1" Relationship="PracModel.FK_Var_Usluga1" FromRole="Var" ToRole="Usluga" />
+          <NavigationProperty Name="Usluga2" Relationship="PracModel.FK_Var_Usluga2" FromRole="Var" ToRole="Usluga" />
+          <NavigationProperty Name="Usluga3" Relationship="PracModel.FK_Var_Usluga3" FromRole="Var" ToRole="Usluga" />
+        </EntityType>
+        <EntityType Name="Zadachi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSot" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="idAdr" Type="Int32" />
+          <Property Name="Discribe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="idIsp" Type="Int32" />
+          <NavigationProperty Name="Adress" Relationship="PracModel.FK_Zadachi_Adress" FromRole="Zadachi" ToRole="Adress" />
+          <NavigationProperty Name="Sotrud" Relationship="PracModel.FK_Zadachi_Sotrud" FromRole="Zadachi" ToRole="Sotrud" />
+          <NavigationProperty Name="Sotrud1" Relationship="PracModel.FK_Zadachi_Sotrud1" FromRole="Zadachi" ToRole="Sotrud" />
+          <NavigationProperty Name="Status1" Relationship="PracModel.FK_Zadachi_Status" FromRole="Zadachi" ToRole="Status" />
+        </EntityType>
+        <Association Name="FK_Adress_Client">
+          <End Type="PracModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="PracModel.Adress" Role="Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adress_Type">
+          <End Type="PracModel.Type" Role="Type" Multiplicity="0..1" />
+          <End Type="PracModel.Adress" Role="Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adress_Ulitca">
+          <End Type="PracModel.Ulitca" Role="Ulitca" Multiplicity="0..1" />
+          <End Type="PracModel.Adress" Role="Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ulitca">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="idUl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adress_Var">
+          <End Type="PracModel.Var" Role="Var" Multiplicity="0..1" />
+          <End Type="PracModel.Adress" Role="Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Var">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="idVar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadachi_Adress">
+          <End Type="PracModel.Adress" Role="Adress" Multiplicity="0..1" />
+          <End Type="PracModel.Zadachi" Role="Zadachi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adress">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadachi">
+              <PropertyRef Name="idAdr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equip_Usluga">
+          <End Type="PracModel.Usluga" Role="Usluga" Multiplicity="0..1" />
+          <End Type="PracModel.Equip" Role="Equip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Equip">
+              <PropertyRef Name="idUs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sotrud_Roll">
+          <End Type="PracModel.Roll" Role="Roll" Multiplicity="0..1" />
+          <End Type="PracModel.Sotrud" Role="Sotrud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roll">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Sotrud">
+              <PropertyRef Name="Rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadachi_Sotrud">
+          <End Type="PracModel.Sotrud" Role="Sotrud" Multiplicity="0..1" />
+          <End Type="PracModel.Zadachi" Role="Zadachi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sotrud">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadachi">
+              <PropertyRef Name="idSot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadachi_Sotrud1">
+          <End Type="PracModel.Sotrud" Role="Sotrud" Multiplicity="0..1" />
+          <End Type="PracModel.Zadachi" Role="Zadachi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sotrud">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadachi">
+              <PropertyRef Name="idIsp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadachi_Status">
+          <End Type="PracModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="PracModel.Zadachi" Role="Zadachi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadachi">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Var_Usluga">
+          <End Type="PracModel.Usluga" Role="Usluga" Multiplicity="0..1" />
+          <End Type="PracModel.Var" Role="Var" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Var">
+              <PropertyRef Name="FUs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Var_Usluga1">
+          <End Type="PracModel.Usluga" Role="Usluga" Multiplicity="0..1" />
+          <End Type="PracModel.Var" Role="Var" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Var">
+              <PropertyRef Name="SUs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Var_Usluga2">
+          <End Type="PracModel.Usluga" Role="Usluga" Multiplicity="0..1" />
+          <End Type="PracModel.Var" Role="Var" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Var">
+              <PropertyRef Name="NUs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Var_Usluga3">
+          <End Type="PracModel.Usluga" Role="Usluga" Multiplicity="0..1" />
+          <End Type="PracModel.Var" Role="Var" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Var">
+              <PropertyRef Name="FoUs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PracModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Usluga">
+            <EntityTypeMapping TypeName="PracModel.Usluga">
+              <MappingFragment StoreEntitySet="Usluga">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Adress">
+            <EntityTypeMapping TypeName="PracModel.Adress">
+              <MappingFragment StoreEntitySet="Adress">
+                <ScalarProperty Name="Numberofber" ColumnName="Numberofber" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="idUl" ColumnName="idUl" />
+                <ScalarProperty Name="Stasus" ColumnName="Stasus" />
+                <ScalarProperty Name="Oplata" ColumnName="Oplata" />
+                <ScalarProperty Name="DateC" ColumnName="DateC" />
+                <ScalarProperty Name="DataS" ColumnName="DataS" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="idVar" ColumnName="idVar" />
+                <ScalarProperty Name="idClient" ColumnName="idClient" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appeals">
+            <EntityTypeMapping TypeName="PracModel.Appeals">
+              <MappingFragment StoreEntitySet="Appeals">
+                <ScalarProperty Name="idAdress" ColumnName="idAdress" />
+                <ScalarProperty Name="Discribe" ColumnName="Discribe" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="PracModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Bith" ColumnName="Bith" />
+                <ScalarProperty Name="Pasport" ColumnName="Pasport" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equip">
+            <EntityTypeMapping TypeName="PracModel.Equip">
+              <MappingFragment StoreEntitySet="Equip">
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="idUs" ColumnName="idUs" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roll">
+            <EntityTypeMapping TypeName="PracModel.Roll">
+              <MappingFragment StoreEntitySet="Roll">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sotrud">
+            <EntityTypeMapping TypeName="PracModel.Sotrud">
+              <MappingFragment StoreEntitySet="Sotrud">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Pasport" ColumnName="Pasport" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="PracModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type">
+            <EntityTypeMapping TypeName="PracModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ulitca">
+            <EntityTypeMapping TypeName="PracModel.Ulitca">
+              <MappingFragment StoreEntitySet="Ulitca">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Var">
+            <EntityTypeMapping TypeName="PracModel.Var">
+              <MappingFragment StoreEntitySet="Var">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="FoUs" ColumnName="FoUs" />
+                <ScalarProperty Name="NUs" ColumnName="NUs" />
+                <ScalarProperty Name="SUs" ColumnName="SUs" />
+                <ScalarProperty Name="FUs" ColumnName="FUs" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zadachi">
+            <EntityTypeMapping TypeName="PracModel.Zadachi">
+              <MappingFragment StoreEntitySet="Zadachi">
+                <ScalarProperty Name="idIsp" ColumnName="idIsp" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Discribe" ColumnName="Discribe" />
+                <ScalarProperty Name="idAdr" ColumnName="idAdr" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="idSot" ColumnName="idSot" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

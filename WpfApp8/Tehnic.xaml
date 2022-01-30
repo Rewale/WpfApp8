@@ -1,0 +1,72 @@
+﻿<Window x:Class="WpfApp8.Tehnic"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp8"
+        mc:Ignorable="d"
+        Title="Tehnic" Height="450" Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Loaded="Window_Loaded"
+        >
+    <Border Background="#272539" 
+            CornerRadius="20,0,20,0">
+        <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text=""
+                       Foreground="Azure"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="32"
+                       />
+                <TextBlock Text="Заявки в работе:"
+                       Foreground="Azure"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="32"
+                       Grid.Column="1" Margin="30,16,0,16"
+                       />
+                <DataGrid x:Name="Luck" Grid.Row="1" Foreground="Azure" Height="200" VerticalAlignment="Top" AutoGenerateColumns="False"  >
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="auto"/>
+                    <DataGridTemplateColumn Header="Кнопка" Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Начать" x:Name="Star" Foreground="Azure" Click="Star_Click"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                </DataGrid>
+            <DataGrid x:Name="Looy" Grid.Row="1" Height="375" VerticalAlignment="Top" Foreground="Azure"  AutoGenerateColumns="False" Grid.Column="1" Margin="30,0,10,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Discribe}" Visibility="Hidden" />
+                        <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="auto"/>
+                        <DataGridTextColumn Header="Создатель" Binding="{Binding Sotrud.FIO}" Width="*"/>
+                        <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="*"/>
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Discribe}" />
+                        <DataGridTextColumn Header="Адрес" Binding="{Binding Adress.Ulitca.Name}"/>
+                    <DataGridTemplateColumn Header="Кнопка" Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Доработать" x:Name="Star" Foreground="Azure" Click="Star_Click_1"  ></Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+              </DataGrid>
+            </Grid>
+    </Border>
+</Window>
